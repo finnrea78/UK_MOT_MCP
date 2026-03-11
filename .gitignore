@@ -1,0 +1,14 @@
+# Plan file (local architecture notes, not for repo)
+mot_mcp_plan.md
+
+# Environment
+.env
+.venv/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
