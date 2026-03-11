@@ -1,5 +1,9 @@
 # MOT History MCP Server
 
+## Project Status
+
+This project is in the planning phase. The implementation plan exists in `mot_mcp_plan.md` (gitignored) but no source files have been created yet. The project needs to be built from scratch following the plan.
+
 ## Project Overview
 
 Python MCP server wrapping the UK MOT History API using FastMCP. Provides MOT data (results, mileage, defects, recalls) conversationally via MCP tools.
@@ -13,21 +17,30 @@ Python MCP server wrapping the UK MOT History API using FastMCP. Provides MOT da
 - **python-dotenv** for env config
 - **hatchling** as build backend
 
-## Project Structure
+## Target Project Structure (not yet created)
 
 ```
 mot_api_agents/
-├── pyproject.toml
-├── .env.example
+├── pyproject.toml          # deps: mcp[cli], httpx, python-dotenv, pydantic; build: hatchling
+├── .env.example            # template for MOT API credentials
 ├── .gitignore
 ├── README.md
 └── src/mot_mcp/
     ├── __init__.py
-    ├── server.py      # FastMCP server + 4 tool handlers + main()
-    ├── client.py       # TokenManager, MotApiClient, exceptions
-    ├── models.py       # Pydantic models (API responses + computed outputs)
-    └── analysis.py     # compute_reliability_summary() — pure logic, no I/O
+    ├── server.py           # FastMCP server + 4 tool handlers + main()
+    ├── client.py           # TokenManager, MotApiClient, exceptions
+    ├── models.py           # Pydantic models (API responses + computed outputs)
+    └── analysis.py         # compute_reliability_summary() — pure logic, no I/O
 ```
+
+### Implementation Order
+
+1. `pyproject.toml` + `.env.example` + `src/mot_mcp/__init__.py` (scaffold)
+2. `models.py` — Pydantic models for API responses and computed outputs
+3. `client.py` — OAuth 2.0 token manager + async HTTP client
+4. `analysis.py` — reliability computation (pure logic, no I/O)
+5. `server.py` — FastMCP tools wiring it all together
+6. `README.md` — usage docs
 
 ## Key Patterns
 
@@ -80,10 +93,10 @@ async def my_tool(reg: str, ctx: Context) -> str:
 - 401/403 -> retry token then `AuthenticationError`
 - All tools return user-friendly error messages, not raw exceptions
 
-## Commands
+## Commands (once project is scaffolded)
 
 - `uv sync` — install dependencies
-- `uv run mot-mcp` — run the server (entry point in pyproject.toml)
+- `uv run mot-mcp` — run the server (entry point: `mot-mcp = "mot_mcp.server:main"`)
 - `mcp dev src/mot_mcp/server.py` — run MCP inspector for development/testing
 
 ## API Reference
