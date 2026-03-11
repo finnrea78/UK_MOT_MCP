@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(uv sync)",
+      "Bash(uv run *)",
+      "Bash(uv add *)",
+      "Bash(mcp dev *)",
+      "Bash(python *)",
+      "Bash(git *)",
+      "Bash(ls *)",
+      "Bash(cat .env.example)"
+    ],
+    "deny": [
+      "Bash(rm -rf *)",
+      "Bash(cat .env)",
+      "Bash(* .env)"
+    ]
+  }
+}
