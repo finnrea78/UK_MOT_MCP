@@ -1,0 +1,19 @@
+[project]
+name = "mot-mcp"
+version = "0.1.0"
+description = "MCP server wrapping the UK MOT History API"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "mcp[cli]",
+    "httpx",
+    "python-dotenv",
+    "pydantic",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.backends"
+
+[project.scripts]
+mot-mcp = "mot_mcp.server:main"
